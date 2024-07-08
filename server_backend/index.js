@@ -18,9 +18,9 @@ const PORT = 8000;
 app.listen(PORT, () => console.log(`Port started on: ${PORT}`));
 
 //setting up db
+const mongoURI = process.env.MONGODB_URI;
 
-mongoose.connect('mongodb+srv://priyanshuchoudhary0104:Priyanshu0209@cape-mongodb.0xium03.mongodb.net/test',
-    { useNewUrlParser: true });
+mongoose.connect(mongoURI, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', (err) => {

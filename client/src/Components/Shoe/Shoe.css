@@ -1,0 +1,13 @@
+.shoe-price {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-btn {
+    background-color: green;
+    margin: 10px;
+}
+
+.flex-container {
+    margin: 10px
+}

@@ -7,7 +7,7 @@ export default function Navbar() {
 
     return (
         <div className='navbar'>
-            <a className='m-10' href='/'>Wear`e</a>
+            <a className='m-20' href='/'>Wear`e</a>
             <div className='category'>
                 <h4>Men</h4>
                 <h4>Women</h4>

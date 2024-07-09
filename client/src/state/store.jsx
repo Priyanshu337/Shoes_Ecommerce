@@ -9,6 +9,7 @@ const rootReducer = combineReducers({
     cartReducer: cartReducer
 });
 
+
 var cartItems = [];
 const storedCartItems = localStorage.getItem('cartItems');
 if (storedCartItems) {

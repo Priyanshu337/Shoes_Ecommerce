@@ -8,6 +8,7 @@ import { deleteFromCart } from '../../actions/CartAction';
 function CartScreen() {
     const cartState = useSelector(state => state.cartReducer)
     const cartItems = cartState.cartItems;
+    const subTotal = cartItems.reduce((x, item) => x + item.price, 0)
     const dispatch = useDispatch();
 
     return (
@@ -47,8 +48,7 @@ function CartScreen() {
 
 
                 <div className="col-md-4">
-
-                    FOr Price
+                    <h1 className="m-10" style={{ fontSize: "45px" }}>Subtotal: {subTotal} /-</h1>
                 </div>
             </div>
         </div>

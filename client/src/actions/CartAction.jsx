@@ -10,7 +10,11 @@ export const addToCart = (shoe, Quantity, Size) => (dispatch, getState) => {
         price: shoe.prices[0][Size] * Quantity
     };
 
-    dispatch({ type: 'ADD_TO_CART', payload: cartItem });
+    if (cartItem.quantity > 10) {
+        alert('You cannot add more than 10 piece')
+    } else {
+        dispatch({ type: 'ADD_TO_CART', payload: cartItem });
+    }
 
     // Get the updated cart items from the state after dispatch
     const { cartItems } = getState().cartReducer;

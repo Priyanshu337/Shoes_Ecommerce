@@ -19,46 +19,69 @@ export default function Shoe({ shoe }) {
     };
 
     return (
-        <div className="shoe-box " key={shoe._id}>
+        <>
+            <div className='d-flex '>
 
-            <div onClick={handleShow} className='shoe'>
-                <h1>{shoe.name}</h1>
-                <img src={shoe.image} alt="Shoes print" className="img-fluid" style={{ width: '300px', height: '300px' }} />
-            </div>
+                <div className="shoe-box" style={{ width: '100%' }} key={shoe._id}>
+                    <div className="flex-container">
+                        <p style={{ color: "#EBF2FA", fontSize: "60px", fontWeight: "bold", display: 'flex' }}>{shoe.name}</p>
+                        <div className='m-1 w-100' style={{ display: 'flex' }}>
+                            <p className='mt-3 ' style={{
+                                color: 'white', fontSize: '42px', fontFamily: "Barlow", fontStyle: 'italic', fontWeight: '500'
+                            }}>$ {shoe.prices[0][Size] * Quantity}</p>
+                        </div>
 
-            <div className="flex-container">
-                <div className='w-100 '>
-                    <p>Size</p>
-                    <select className='form-control' value={Size} onChange={(e) => { setSize(e.target.value) }}>
-                        {shoe.size.map(size => {
-                            return <option value={size} key={size}>{size}</option >
-                        })}
-                    </select>
+                        <p style={{ color: 'white', display: 'flex', fontSize: '22px', fontWeight: 'bold', maxWidth: '800px' }}>{shoe.description}</p>
+
+
+                        <div className='w-auto' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+                            <div className='w-auto' style={{ display: 'flex', flexDirection: 'column' }}>
+
+                                <p style={{ color: "#EBF2FA", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Size</p>
+                                <p style={{ color: "#EBF2FA", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Quantity</p>
+
+                            </div>
+
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <select className='form-control' value={Size} onChange={(e) => { setSize(e.target.value) }} style={{ textAlignLast: 'center', width: "90%", margin: "15px" }}>
+                                    {shoe.size.map(size => {
+                                        return <option value={size} key={size}>{size}</option >
+                                    })}
+                                </select>
+
+                                <select
+                                    className="form-control"
+                                    value={Quantity}
+                                    onChange={(e) => setQuantity(e.target.value)}
+                                    style={{
+                                        textAlignLast: 'center', width: "90%", margin: "15px"
+                                    }}
+                                >
+                                    {[...Array(10).keys()].map((x, i) => (
+                                        <option value={i + 1} key={i}>{i + 1}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
+                        <div className='mt-3 w-auto' style={{ display: 'flex' }} >
+                            <button className='cart-btn' style={{ backgroundColor: "#E0ACD5", borderRadius: "5px", width: '180px', height: "65px", borderRadius: '4%' }} onClick={addtocart}> ADD TO CART</button>
+                        </div>
+                    </div>
                 </div>
 
-                <div className='w-100'>
-                    <p>Quantity</p>
-                    <select className='form-control' value={Quantity} onChange={(e) => { setQuantity(e.target.value) }}>
-                        {[...Array(10).keys()].map((x, i) => {
-                            return <option value={i + 1} key={i}>{i + 1}</option>
-                        })}
-                    </select>
-                </div>
-            </div>
+                {/* image of the shoe */}
 
-            <div className="shoe-price">
-                <div className='m-1 w-100'>
-                    <h1 className='mt-3'>Price : {shoe.prices[0][Size] * Quantity}</h1>
+                <div onClick={handleShow} className='bg-image hover-zoom' style={{ display: 'flex', flexDirection: 'coloumn', justifyContent: 'center', alignItems: 'center' }}>
+                    <img src={shoe.image} alt="Shoes print" className="img-fluid " style={{ width: '500px', height: '500px', marginRight: '30px' }} />
                 </div>
-
-                <div className='m-1 w-100' >
-                    <button className='cart-btn' onClick={addtocart}> ADD TO CART</button>
-                </div>
-            </div>
-
+            </div >
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{shoe.name}</Modal.Title>
+                    <Modal.Title >{shoe.name}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -70,6 +93,8 @@ export default function Shoe({ shoe }) {
                     <button className='btn' onClick={handleClose}>CLOSE </button>
                 </Modal.Footer>
             </Modal>
-        </div>
+
+        </>
+
     )
 }

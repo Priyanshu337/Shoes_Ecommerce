@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { getAllShoes } from "../../actions/ShoesAction";         // For bringing data from shoesAction.js to here to use
 import Shoe from '../../Components/Shoe/Shoe';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
@@ -9,16 +10,18 @@ import './HomeScreen.css'
 export default function HomeScreen() {
   const dispatch = useDispatch();
   const shoeState = useSelector((state) => state.allShoes);
+  const cartstate = useSelector(state => state.cartReducer)
+  const [hovered, setHovered] = useState(false);
 
-  // const { shoes, error, loading } = shoeState || { shoes: [], error: null, loading: false };
 
   useEffect(() => {
     dispatch(getAllShoes());
   }, [])
 
   return (
-    <div className="align-items-center">
-      <div className="row">
+    <div className="align-items-center " style={{ backgroundColor: "black", display: 'flex', flexDirection: 'column' }}>
+
+      <div className="row" style={{ margin: '40px', display: 'flex', justifyContent: 'center' }}>
         {
           shoeState.loading ? (
             <h1>Loading...</h1>
@@ -26,7 +29,11 @@ export default function HomeScreen() {
             <h1>Something Went Wrong</h1>
           ) : (
             shoeState.shoes.map(shoe => {
-              return <div className="col-md-3" style={{ borderRadius: '15px', width: "550px", height: "650px", boxShadow: '0 .15rem 1.75rem 0 rgba(0, 0, 0, .15)', padding: '10px', margin: '20px auto' }}>
+              return <div style={{
+                borderRadius: '25px', width: "auto%", height: "auto", maxWidth: '80%', padding: '10px', marginBottom: '50px ', boxShadow: '0.4px 8px rgba(255, 255, 255, 0.4)',
+                transition: 'box-shadow 0.3s ease-in-out',
+              }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 48px rgba(255, 255, 255, 0.6)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.4)'}>
                 <div>
                   <Shoe shoe={shoe} />
                 </div>

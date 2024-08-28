@@ -1,9 +1,11 @@
 // user router code.
-const { Router } = require('express');
-const { users, findOne } = require("../Model/userModel.js");
+const Router = require('express');
+const User = require("../Model/userModel.js");
 const jwt = require("jsonwebtoken");
 const { Validation } = require('../utils/userValidation')
 const { genSalt, hash, compare } = require("bcryptjs");
+const bcrypt = require('bcrypt');
+
 const { sign } = require("jsonwebtoken");
 require('dotenv').config()
 
@@ -16,14 +18,15 @@ const router = Router();
 router.post("/signup", async (req, res) => {
 
     try {
-        const { email, password, passwordVerify } = req.body;
+        const { name, email, password, passwordVerify } = req.body;
+        // console.log('THis is the body that we recieve in backend ', name, email, password, passwordVerify)
 
         //validation
-        if (!email || !password || !passwordVerify) {
+        if (!name || !email || !password || !passwordVerify) {
             return res
                 .status(400)
                 .json({
-                    errormessage: Validation.REQ,
+                    errormessage: Validation ? Validation.REQ : "Email, password and password verification are required",
                 });
         } if (password.length < 6) {
             return res
@@ -38,19 +41,21 @@ router.post("/signup", async (req, res) => {
                     errormessage: "Password doesn't match",
                 });
         }
-        const existingUser = await findOne({ email: req.body.email });
+
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             return res
                 .status(400)
                 .json({
-                    errormessage: "User already exist.",
+                    errormessage: "User with this email already exist.",
                 });
         } else {
             const salt = await genSalt();
             const passwordHash = await hash(password, salt);
 
-            const newUser = new users({
+            const newUser = new User({
+                name,
                 email,
                 passwordHash,
             });
@@ -63,7 +68,7 @@ router.post("/signup", async (req, res) => {
                 },
                 process.env.JWT_SECRET
             );
-            console.log(token)
+            // console.log(token)
             res.cookie("token", token, {
                 httpOnly: true,
             })
@@ -86,6 +91,7 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(email, password, "THis is bE ema nd pass");
 
         // E-mail validate 
 
@@ -99,17 +105,15 @@ router.post("/login", async (req, res) => {
 
         // E-mail validate 
 
-        const existingUser = await findOne({ email });
-        if (!existingUser) {
+        const userExists = await User.findOne({ email });
+        if (!userExists) {
             return res.status(401)
                 .json({
                     errormessage: "Wrong e-mail or password."
                 });
         }
 
-        // Password Validation
-
-        const passwordCorrect = await compare(password, existingUser.passwordHash);
+        const passwordCorrect = await bcrypt.compare(password, userExists.passwordHash);
         if (!passwordCorrect) {
             return res.status(401)
                 .json({
@@ -117,19 +121,23 @@ router.post("/login", async (req, res) => {
                 });
         }
 
+        console.log('succesfully passed wrong password stage and now moving to singin token stage ');
+
         // Sign in token 
         const token = sign(
             {
-                user: existingUser._id,
+                user: userExists._id,
             },
             process.env.JWT_SECRET
         );
+
 
         // send token in HTTP-only cookie 
         res.cookie("token", token, {
             httpOnly: true,
         })
-            .send();
+        // res.redirect('/homescreen');
+        res.send();
     } catch (err) {
         console.log(err);
         res.status(500).send();

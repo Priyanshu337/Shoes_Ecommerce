@@ -1,13 +1,20 @@
-.shoe-price {
+/* .shoe-price {
     display: flex;
     flex-direction: row;
-}
+} */
 
 .cart-btn {
     background-color: green;
     margin: 10px;
+    border-style: none;
+    width: 70%;
+    height: 70%;
 }
 
 .flex-container {
-    margin: 10px
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }

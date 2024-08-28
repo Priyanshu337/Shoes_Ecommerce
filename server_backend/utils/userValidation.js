@@ -1,5 +1,5 @@
 const Validation = {
-    REQ: "Please enter all field"
+    REQ: "Email, password and password verification are required",
 };
 
 module.export = Validation;

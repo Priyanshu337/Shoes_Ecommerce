@@ -7,6 +7,8 @@ const customerRoute = require('./routes/customerRoute')
 
 const app = express()
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
@@ -30,10 +32,10 @@ db.once('open', () => {
     console.log('Connected to MongoDB!');
 });
 app.get('/', function (req, res) {
-    res.send('Server working')
+    res.send('Server working on assigned port:' + PORT)
 })
 
 app.use('/api/shoes/', shoesRoute);
-app.use("/authentication", userRoute);
-app.use("/Customer", customerRoute);
+app.use("/api/authentication/", userRoute);
+app.use("/Customer/", customerRoute);
 

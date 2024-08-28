@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import { getShoesReducer } from "./reducers/ShoesReducer";
 import { combineReducers } from 'redux';
 import { cartReducer } from './reducers/CartReducer';
+import { registerUserReducer } from './reducers/userReducer';
 
 const rootReducer = combineReducers({
-    allShoes: getShoesReducer, // Assuming `getShoesReducer` is your reducer for fetching all shoes
-    cartReducer: cartReducer
+    allShoes: getShoesReducer,
+    cartReducer: cartReducer,
+    // registerUserReducer: registerUserReducer
 });
 
 
@@ -31,6 +33,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
     devTools: true,
     preloadedState: initialState,
+
 });
 
 

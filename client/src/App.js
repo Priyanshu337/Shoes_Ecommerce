@@ -13,7 +13,7 @@ function App() {
         <Navbar />
         <BrowserRouter>
           <Routes>
-            <Route path="/" exact element={<HomeScreen />} />
+            <Route path="/homeScreen" exact element={<HomeScreen />} />
             <Route path="/cart" exact element={<CartScreen />} />
             <Route path="/Login" exact element={<LoginScreen />} />
             <Route path="/Signup" exact element={<SignupScreen />} />

@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import { getShoesReducer } from "./reducers/ShoesReducer";
 import { combineReducers } from 'redux';
 import { cartReducer } from './reducers/CartReducer';
-import { registerUserReducer } from './reducers/userReducer';
+import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
+import { loginUser } from '../actions/userAction';
 
 const rootReducer = combineReducers({
     allShoes: getShoesReducer,
     cartReducer: cartReducer,
-    // registerUserReducer: registerUserReducer
+    registerUserReducer: registerUserReducer,
+    loginUserReducer: loginUserReducer
 });
 
 
@@ -22,9 +24,13 @@ if (storedCartItems) {
     }
 }
 
+const currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null; // TODO
+
 const initialState = {
     cartReducer: {
         cartItems: cartItems
+    }, loginUserReducer: {
+        currentUser: currentUser
     }
 };
 

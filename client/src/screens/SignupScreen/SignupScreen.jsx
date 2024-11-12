@@ -21,7 +21,9 @@ function SignupScreen() {
                 password,
                 passwordVerify
             }
+            console.log(user);
             dispatch(registerUser(user));
+
         }
 
     }

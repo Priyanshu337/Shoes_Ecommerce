@@ -8,17 +8,18 @@ export default function Navbar() {
     return (
         <>
             <div style={{
-                height: '11vh',
+                height: '9vh',
                 display: 'flex',
                 flexDirection: 'row',
+                justifyContent: 'space-between',
                 backgroundColor: 'rgb(24, 32, 36)',
             }}
             >
-                <NikeLogo className=' width="70" height="3.5vh" ' style={{ backgroundColor: 'White', borderRadius: '70%', margin: '10px' }} />
+                {/* <NikeLogo className=' width="70" height="3.5vh" ' style={{ backgroundColor: 'White', borderRadius: '70%', margin: '10px' }} /> */}
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "center", alignItem: 'center', width: 'auto', marginRight: '120px' }}>
-                    <b className='m-2 p-2' style={{ color: "#EBF2FA", fontSize: "36px", fontWeight: "bold", textDecoration: 'none' }} href='/'>
+                    <a className='m-2 p-2' style={{ color: "#EBF2FA", fontSize: "36px", fontWeight: "bold", textDecoration: 'none' }} href="/homeScreen">
                         Wea're
-                    </b>
+                    </a>
                 </div>
                 <div className='m-1 p-1' style={{
                     backgroundColor: "transparent",
@@ -31,7 +32,6 @@ export default function Navbar() {
                     padding: '50px',
                 }}
                 >
-
                     <p style={{
                         fontSize: '30px', height: '36px', marginRight: '60px', color: 'white', fontWeight: "bold", textDecoration: 'none'
                     }}>Men</p>

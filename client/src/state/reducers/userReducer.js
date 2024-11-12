@@ -20,7 +20,7 @@ export const registerUserReducer = (state = {}, action) => {
 
 }
 
-export const loginUser = (state = {}, action) => {
+export const loginUserReducer = (state = {}, action) => {
     switch (action.type) {
         case 'USER_LOGIN_REQUEST':
             return {
@@ -29,7 +29,9 @@ export const loginUser = (state = {}, action) => {
         case 'USER_LOGIN_SUCCESS':
             return {
                 loading: false,
-                success: true
+                success: true,
+                currentUser: action.payload
+
             };
         case 'USER_LOGIN_FAILURE':
             return {

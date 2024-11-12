@@ -12,23 +12,20 @@ function LoginScreen() {
     const navigate = useNavigate();
 
 
-    const Login = async (email, password) => {
-
-        const userCred = {
-            email: email,
-            password: password
-        }
+    const Login = async () => {
         try {
+            const userCred = {
+                email: email,
+                password: password
+            }
             const response = dispatch(loginUser(userCred));
-
-            if (response.status === 202) {
+            if (response.status === 200) {
                 navigate('./HomeScreen');
             }
         } catch (error) {
             console.log(error.message);
         }
     }
-
 
     return (
         <>

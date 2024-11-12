@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const { Validation } = require('../utils/userValidation')
 const { genSalt, hash, compare } = require("bcryptjs");
 const bcrypt = require('bcrypt');
-
 const { sign } = require("jsonwebtoken");
 require('dotenv').config()
 
@@ -13,7 +12,7 @@ const express = require('express');
 exports.router = express.Router();
 
 const router = Router();
-// ------------------------------------Sign-Up Part-------------------------------------------------
+// ------------------------------------Sign-Up Part------------------------------------------------- 
 
 router.post("/signup", async (req, res) => {
 
@@ -50,6 +49,7 @@ router.post("/signup", async (req, res) => {
                 .json({
                     errormessage: "User with this email already exist.",
                 });
+            return
         } else {
             const salt = await genSalt();
             const passwordHash = await hash(password, salt);
@@ -79,51 +79,49 @@ router.post("/signup", async (req, res) => {
                     message: "User created successfully.."
                 });
         }
-
     } catch (err) {
         console.error(err);
         res.status(500).send();
     };
 });
 
+
 // --------------------------------------Log-In Part---------------------------------------------
 
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password, "THis is bE ema nd pass");
-
-        // E-mail validate 
+        // console.log(email, password, "This is email nd pass");
 
         if (!email || !password) {
             return res
                 .status(400)
-                .json({
+                .send({
                     errormessage: "Please enter all required fields",
                 });
         }
 
-        // E-mail validate 
+        // E-mail validate.
 
         const userExists = await User.findOne({ email });
         if (!userExists) {
             return res.status(401)
-                .json({
-                    errormessage: "Wrong e-mail or password."
+                .send({
+                    errormessage: "Wrong e-mail."
                 });
         }
 
         const passwordCorrect = await bcrypt.compare(password, userExists.passwordHash);
         if (!passwordCorrect) {
             return res.status(401)
-                .json({
-                    errormessage: "Wrong e-mail or password."
+                .send({
+                    errormessage: "Wrong  password."
                 });
         }
 
-        console.log('succesfully passed wrong password stage and now moving to singin token stage ');
 
-        // Sign in token 
+
+        // sign in token
         const token = sign(
             {
                 user: userExists._id,
@@ -131,16 +129,25 @@ router.post("/login", async (req, res) => {
             process.env.JWT_SECRET
         );
 
-
-        // send token in HTTP-only cookie 
+        //  send token in HTTP - only cookie
         res.cookie("token", token, {
             httpOnly: true,
         })
-        res.redirect('/homescreen');
+        if (userExists && passwordCorrect) {
+            const currentUser = {
+                name: userExists.name,
+                email: userExists.email,
+                isAdmin: userExists.isAdmin,
+                _id: userExists._id
+            }
+            res.send(currentUser)
+
+        }
+
+
+    } catch (error) {
+        console.log("Here is the error", error);
         res.send();
-    } catch (err) {
-        console.log(err);
-        res.status(500).send();
     }
 });
 //--------------------------------Log-out Part ------------------------------------------------//
@@ -151,6 +158,7 @@ router.get("/logout", (req, res) => {
         expires: new Date(0),
     })
         .send();
+    console.log("loggedout");
 })
 
 

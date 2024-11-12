@@ -136,7 +136,7 @@ router.post("/login", async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
         })
-        // res.redirect('/homescreen');
+        res.redirect('/homescreen');
         res.send();
     } catch (err) {
         console.log(err);

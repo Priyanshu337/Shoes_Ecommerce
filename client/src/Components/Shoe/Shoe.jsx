@@ -24,21 +24,21 @@ export default function Shoe({ shoe }) {
 
                 <div className="shoe-box" style={{ width: '100%' }} key={shoe._id}>
                     <div className="flex-container">
-                        <p style={{ color: "#EBF2FA", fontSize: "60px", fontWeight: "bold", display: 'flex' }}>{shoe.name}</p>
+                        <p style={{ color: "black", fontSize: "60px", fontWeight: "bold", display: 'flex' }}>{shoe.name}</p>
                         <div className='m-1 w-100' style={{ display: 'flex' }}>
                             <p className='mt-3 ' style={{
-                                color: 'white', fontSize: '42px', fontFamily: "Barlow", fontStyle: 'italic', fontWeight: '500'
+                                color: 'black', fontSize: '42px', fontFamily: "Barlow", fontStyle: 'italic', fontWeight: '500'
                             }}>$ {shoe.prices[0][Size] * Quantity}</p>
                         </div>
 
-                        <p style={{ color: 'white', display: 'flex', fontSize: '22px', fontWeight: 'bold', maxWidth: '800px' }}>{shoe.description}</p>
+                        <p style={{ color: 'black', display: 'flex', fontSize: '22px', fontWeight: 'bold', maxWidth: '800px' }}>{shoe.description}</p>
 
 
                         <div className='w-auto' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                             <div className='w-auto' style={{ display: 'flex', flexDirection: 'column' }}>
 
-                                <p style={{ color: "#EBF2FA", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Size</p>
-                                <p style={{ color: "#EBF2FA", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Quantity</p>
+                                <p style={{ color: "black", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Size</p>
+                                <p style={{ color: "black", fontSize: "22px", fontWeight: "bold", margin: "15px", width: 'auto' }}>Quantity</p>
 
                             </div>
 
@@ -68,7 +68,7 @@ export default function Shoe({ shoe }) {
 
 
                         <div className='mt-3 w-auto' style={{ display: 'flex' }} >
-                            <button className='cart-btn' style={{ backgroundColor: "#E0ACD5", borderRadius: "5px", width: '180px', height: "65px", borderRadius: '4%' }} onClick={addtocart}> ADD TO CART</button>
+                            <button className='cart-btn' style={{ backgroundColor: "green", borderRadius: "5px", width: '180px', height: "65px", borderRadius: '4%' }} onClick={addtocart}> ADD TO CART</button>
                         </div>
                     </div>
                 </div>
@@ -79,6 +79,7 @@ export default function Shoe({ shoe }) {
                     <img src={shoe.image} alt="Shoes print" className="img-fluid " style={{ width: '500px', height: '500px', marginRight: '30px' }} />
                 </div>
             </div >
+
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title >{shoe.name}</Modal.Title>
@@ -93,7 +94,6 @@ export default function Shoe({ shoe }) {
                     <button className='btn' onClick={handleClose}>CLOSE </button>
                 </Modal.Footer>
             </Modal>
-
         </>
 
     )

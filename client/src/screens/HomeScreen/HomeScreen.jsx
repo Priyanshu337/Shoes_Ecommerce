@@ -30,10 +30,10 @@ export default function HomeScreen() {
           ) : (
             shoeState.shoes.map(shoe => {
               return <div style={{
-                borderRadius: '25px', width: "auto%", height: "auto", maxWidth: '80%', padding: '10px', marginBottom: '50px ', boxShadow: '0.4px 8px rgba(255, 255, 255, 0.4)',
+                borderRadius: '25px', backgroundColor: "white", width: "auto%", height: "auto", maxWidth: '80%', padding: '10px', marginBottom: '50px ', boxShadow: '0.4px 8px rgba(255, 255, 255, 0.8)',
                 transition: 'box-shadow 0.3s ease-in-out',
-              }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 48px rgba(255, 255, 255, 0.6)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.4)'}>
+              }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 12px 48px rgba(255, 255, 255, 1.2)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.8)'}>
                 <div>
                   <Shoe shoe={shoe} />
                 </div>

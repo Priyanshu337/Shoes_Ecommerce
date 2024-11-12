@@ -19,7 +19,7 @@ function LoginScreen() {
             password: password
         }
         try {
-            const response = await dispatch(loginUser(userCred));
+            const response = dispatch(loginUser(userCred));
 
             if (response.status === 202) {
                 navigate('./HomeScreen');

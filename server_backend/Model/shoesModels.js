@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const shoesSchema = new mongoose.Schema({
     name: { type: String, require },
     size: [],
-    price: [],
+    price: {},
     category: { type: String, require },
     image: { type: String, require },
     description: { type: String, require }

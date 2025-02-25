@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const shoesRoute = require('./routes/shoesRoute')
 const userRoute = require('./routes/userRoute')
 const customerRoute = require('./routes/customerRoute')
+const orderRoute = require('./routes/orderRoute')
 
 const app = express()
 app.use(express.json());
@@ -38,4 +39,4 @@ app.get('/', function (req, res) {
 app.use('/api/shoes/', shoesRoute);
 app.use("/api/authentication/", userRoute);
 app.use("/Customer/", customerRoute);
-
+app.use("/api/orders", orderRoute);

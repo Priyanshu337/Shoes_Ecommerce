@@ -49,7 +49,7 @@ router.post("/signup", async (req, res) => {
                 .json({
                     errormessage: "User with this email already exist.",
                 });
-            return
+
         } else {
             const salt = await genSalt();
             const passwordHash = await hash(password, salt);
@@ -87,69 +87,42 @@ router.post("/signup", async (req, res) => {
 
 
 // --------------------------------------Log-In Part---------------------------------------------
-
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-        // console.log(email, password, "This is email nd pass");
 
         if (!email || !password) {
-            return res
-                .status(400)
-                .send({
-                    errormessage: "Please enter all required fields",
-                });
+            return res.status(400).json({ errorMessage: "Please enter all required fields." });
         }
 
-        // E-mail validate.
-
         const userExists = await User.findOne({ email });
+
         if (!userExists) {
-            return res.status(401)
-                .send({
-                    errormessage: "Wrong e-mail."
-                });
+            return res.status(401).json({ errorMessage: "Invalid email or password." });
         }
 
         const passwordCorrect = await bcrypt.compare(password, userExists.passwordHash);
         if (!passwordCorrect) {
-            return res.status(401)
-                .send({
-                    errormessage: "Wrong  password."
-                });
+            return res.status(401).json({ errorMessage: "Invalid email or password." });
         }
 
+        const token = sign({ user: userExists._id }, process.env.JWT_SECRET);
 
+        res.cookie("token", token, { httpOnly: true });
 
-        // sign in token
-        const token = sign(
-            {
-                user: userExists._id,
-            },
-            process.env.JWT_SECRET
-        );
-
-        //  send token in HTTP - only cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-        })
-        if (userExists && passwordCorrect) {
-            const currentUser = {
-                name: userExists.name,
-                email: userExists.email,
-                isAdmin: userExists.isAdmin,
-                _id: userExists._id
-            }
-            res.send(currentUser)
-
-        }
-
+        return res.status(200).json({
+            name: userExists.name,
+            email: userExists.email,
+            isAdmin: userExists.isAdmin,
+            _id: userExists._id
+        });
 
     } catch (error) {
-        console.log("Here is the error", error);
-        res.send();
+        console.error("Login Error:", error);
+        return res.status(500).json({ errorMessage: "Internal Server Error" });
     }
 });
+
 //--------------------------------Log-out Part ------------------------------------------------//
 
 router.get("/logout", (req, res) => {

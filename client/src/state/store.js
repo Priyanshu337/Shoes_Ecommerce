@@ -4,13 +4,15 @@ import { getShoesReducer } from "./reducers/ShoesReducer";
 import { combineReducers } from 'redux';
 import { cartReducer } from './reducers/CartReducer';
 import { loginUserReducer, registerUserReducer } from './reducers/userReducer';
-import { loginUser } from '../actions/userAction';
+import { placeOrderReducer, getUserOrdersReducer } from './reducers/OrderReducer';
 
 const rootReducer = combineReducers({
     allShoes: getShoesReducer,
     cartReducer: cartReducer,
     registerUserReducer: registerUserReducer,
-    loginUserReducer: loginUserReducer
+    loginUserReducer: loginUserReducer,
+    placeOrderReducer: placeOrderReducer,
+    getUserOrdersReducer: getUserOrdersReducer
 });
 
 

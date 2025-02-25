@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { addToCart } from '../../actions/CartAction';
-import UserDataForm from '../../Components/UserDataForm/UserDataForm';
+import { addToCart } from '../actions/CartAction';
 import { useDispatch } from "react-redux";
-import { deleteFromCart } from '../../actions/CartAction';
+import { deleteFromCart } from '../actions/CartAction';
 
 import React from "react";
+import Checkout from '../Components/Checkout';
 
 function CartScreen() {
     const cartState = useSelector(state => state.cartReducer)
@@ -15,34 +15,12 @@ function CartScreen() {
 
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space -evenly', padding: '10px' }}>
-            <div style={{
-                width: '50%',
-                height: 'auto',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'white', // Optional: add background color for contrast
-            }}>
-                <div style={{ display: 'flex', flexDirection: 'column', margin: '5vh' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '3vh' }}>
-                        <b style={{ fontSize: '22px' }}>Contact Information </b>
-                        <span>Already have an account? <b style={{ textDecoration: 'Underline', fontSize: '20px', }}>Login</b></span>
-                    </div>
-
-                    <UserDataForm />
-
-                    <h1 className="m-5" style={{ fontSize: "45px" }}>Subtotal: {subTotal} /-</h1>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <button style={{ margin: '10px', height: '7vh', width: '35vh' }}  >Pay</button>
-                    </div>
-                </div>
-            </div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', padding: '10px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', width: '50%' }}>
                 <div style={{
                     borderRadius: '15px', padding: '3px', margin: '5px', width: 'auto'
                 }}>
                     <h1 style={{ fontWeight: 'bold' }}>My Cart</h1>
-
                     {
                         cartItems.map((item) => {
                             return <div
@@ -83,15 +61,18 @@ function CartScreen() {
                         })
                     }
                 </div>
-
             </div >
-
+            <div className='h-90 w-90 d-flex flex-row '>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignContent: 'center', width: '30vw', height: '60vh' }}>
+                    <button style={{ margin: '5px', height: '40vh', width: '55vh' }}  >
+                        <h1 className="m-5" style={{ fontSize: "45px" }}>Subtotal: {subTotal}/-</h1>
+                        <Checkout subTotal={subTotal} /></button>
+                </div>
+            </div>
         </div >
     );
 }
 
 export default CartScreen;
-
-
 
 

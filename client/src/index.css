@@ -67,3 +67,39 @@ input {
   box-shadow: none !important;
 
 }
+
+.adminPanel {
+  background-color: white;
+  background-color: rgb(4, 4, 153);
+
+}
+
+.adminPanel li {
+  list-style-type: none;
+  display: inline;
+}
+
+.adminPanel li a {
+  color: white;
+  padding: 20px;
+  text-decoration: none;
+}
+
+td,
+th,
+tr {
+  text-align: left;
+}
+
+.list {
+  list-style: none;
+}
+
+.form {
+  width: 50vw;
+  border: 2px solid black !important;
+  height: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import './Shoe.css'
-import { addToCart } from '../../actions/CartAction'
+import { addToCart } from '../actions/CartAction'
 
 export default function Shoe({ shoe }) {
     const [Quantity, setQuantity] = useState(1)

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { getAllShoes } from "../../actions/ShoesAction";         // For bringing data from shoesAction.js to here to use
-import Shoe from '../../Components/Shoe/Shoe';
+import { getAllShoes } from "../actions/ShoesAction";         // For bringing data from shoesAction.js to here to use
+import Shoe from '../Components/Shoe';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
-import './HomeScreen.css'
-
+import Loading from '../Components/Loading';
+import Error from '../Components/Error';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ export default function HomeScreen() {
       <div className="row" style={{ margin: '40px', display: 'flex', justifyContent: 'center' }}>
         {
           shoeState.loading ? (
-            <h1>Loading...</h1>
+            <Loading />
           ) : shoeState.error ? (
-            <h1>Something Went Wrong</h1>
+            <Error />
           ) : (
             shoeState.shoes.map(shoe => {
               return <div style={{
